@@ -18,10 +18,15 @@ import  ThemeProvider  from './Context/Theme/ThemeContext'
 import ThemeButton from './effects/ThemeButton'
 import LoginButtons from './Context/User/LoginButtons'
 import UserProvider from './Context/User/UserProvider'
+import { LanguageProvider } from './Context/language/LanguageContext'
+import Greeting from './Context/User/Greeting'
+import { CartContext } from './Context/Cart/CartContext'
+import { products } from './Context/User/ProductList'
 
 function App() {
   const [count, setCount] = useState(0)
-
+  const [cartAmount, setCartAmount] = useState(0)
+  const [cartTotal, setCartTotal] = useState(0)
   return (
     <ThemeProvider>
       <UserProvider>
@@ -29,11 +34,27 @@ function App() {
       </UserProvider>
       <ThemeButton />
       <QuizTimer />
-      
+      <LanguageProvider>
+        <Greeting />
+      </LanguageProvider>
       <InboxTitle />
       <UserProfile />
       <AutoSaveNote />
+      <CartContext>
+      {products.map((product) => (
+        <div key={product.id}>
+          <h2>{product.name}</h2>
+          <p>{product.price}</p>
+          <button onClick = {() => product.isInCart = true}>{product.isInCart ? 'In Cart' : 'Add to Cart'}</button>
+        </div>
+      ))}
+      {products.map((product) => product.isInCart && (
+        cartAmount + 1
+        cartTotal + product.price
+      ))}
+    </CartContext>
     </ThemeProvider>
+    
   )
 }
 
