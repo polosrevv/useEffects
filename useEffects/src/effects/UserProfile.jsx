@@ -13,20 +13,30 @@ function UserProfile() {
   useEffect(() => {
     // This effect runs whenever the userId changes
     // Change loading state after each step of the process, this will make the text "LOading..." appear and dissapear due to the ternary operators
+    let active = true
     setLoading(true)
+    setError(null)
     // Fetching data from the API based on the current userId
     fetch(`https://jsonplaceholder.typicode.com/users/${userId}`)
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch user')
+        return res.json()
+      })
       .then((data) => {
-        setUser(data)
-        setLoading(false)
+        if (active) {
+          setUser(data)
+          setLoading(false)
+        }
       })
       // Handling errors if the fetch request fails
       .catch((error) => {
         console.error('Error fetching user:', error)
-        setError(error)
-        setLoading(false)
+        if (active) {
+          setError(error)
+          setLoading(false)
+        }
       })
+    return () => { active = false }
   }, [userId])
 
   
@@ -36,8 +46,10 @@ function UserProfile() {
       {loading ? <p>Loading…</p> : error ? <p>Error loading user</p> : <h3>{user.name}</h3>}
       {loading ? <p>Loading…</p> : error ? <p>Error loading user</p> : <p>{user.email}</p>}
       {loading ? <p>Loading…</p> : error ? <p>Error loading user</p> : <p>{user.phone}</p>}
-      <button onClick={() => setUserId(userId + 1)}>Next user</button>
-      <button onClick = {userId === 10 ? setUserId(1) : setUserId(userId + 1)}>Previous user</button>
+      <p>Current userId: {userId}</p>
+      {/* same as before except I use setUserId(obvious mistake, i know) */}
+      <button onClick={() => setUserId((id) => id === 10 ? 1 : id + 1)}>Next user</button>
+      <button onClick={() => setUserId((id) => id === 1 ? 10 : id - 1)}>Previous user</button>
     </div>
   )
 }

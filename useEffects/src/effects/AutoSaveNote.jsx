@@ -1,3 +1,9 @@
+
+// Steven Gonell
+// 11/3/2026
+// This component implements an auto-saving note feature.
+// The note is saved to localStorage automatically as the user types.
+// The component also displays the word count and provides a button to clear the note.
 import { useState, useEffect } from 'react'
  
 function AutoSaveNote() {
@@ -22,6 +28,8 @@ function AutoSaveNote() {
       />
       <p>Word count: {wordCount}</p>
       <button onClick={() => {
+        // Clear the note and reset the word count    
+        // This also sets the clearNote state to true to display the "Note cleared." message.
         setNote('')
         setWordCount(0)
         setClearNote(true)

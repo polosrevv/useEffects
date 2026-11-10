@@ -1,4 +1,40 @@
+:root {
+    background: white;
+    color: #6b6375;
+}
+
+:root[data-theme='dark'] {
+    background: #16171d;
+    color: #f3f4f6;
+}
+
 .urgent {
     color: red;
     font-weight: bold;
+}
+
+.user-profile {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.device {
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.device-phone {
+    color: #1677c8;
+    background-color: #e8f4ff;
+}
+
+.device-tablet {
+    color: #8a5a00;
+    background-color: #fff4d6;
+}
+
+.device-desktop {
+    color: #24733b;
+    background-color: #e8f7ec;
 }
