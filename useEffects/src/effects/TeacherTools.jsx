@@ -18,7 +18,7 @@ function TeacherTools() {
         // How do I figure out if the user is a teacher?
         // We can use the UserContext to check the user's role.
         <nav>
-            <a href = "#gradebook"> Grade Book</a>
+            <a href = "#"> Grade Book</a>
         </nav>
     );
 }
